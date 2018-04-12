@@ -1,0 +1,39 @@
+#include<stdio.h>
+int rose(int );
+int main()
+{
+	int m,n,i,last;
+	while(scanf("%d %d",&m,&n)!=EOF)
+	{
+	last=-1;
+	for (i=m;i<=n;i++)
+	{
+		if (rose(i)==1)
+		{
+			if (last==-1)
+			last=i;
+			else
+			{
+			printf("%d ",last);
+			last=i;
+			}
+		}
+	}
+	if (last==-1)
+	printf("no\n");
+	else
+	printf("%d\n",last);
+	}
+	return 0;
+}
+int rose(int num)
+{
+	int a,b,c;
+	a=num%10;
+	c=num/100;
+	b=(num-c*100)/10;
+	if (num==a*a*a+b*b*b+c*c*c)
+	return 1;
+	else
+	return 0;
+}

@@ -1,0 +1,35 @@
+#include<stdio.h>
+int main()
+{
+	int n,i,c,min,k,a[100];
+	while (scanf("%d",&n)!=EOF)
+	{
+		if (n==0)
+		break;
+		else
+		{
+			for (i=0;i<n;i++)
+			scanf("%d",&a[i]);
+			
+			min=a[0];k=0;
+			for (i=1;i<n;i++)
+			{
+				if (min>a[i])
+				{
+					k=i;
+					min=a[i];
+				}
+			}
+			
+			c=a[0];
+			a[0]=a[k];
+			a[k]=c;
+			
+			for (i=0;i<n-1;i++)
+			printf("%d ",a[i]);
+			printf("%d",a[n-1]);
+			printf("\n");
+		}
+	}
+	return 0;
+}

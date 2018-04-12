@@ -1,0 +1,47 @@
+#include<stdio.h>
+int imax(int a[] ,int );
+int imin(int a[],int );
+int main()
+{
+	int a[100], n, i;
+	while (scanf("%d",&n)!=EOF)
+	{
+		for (i=0;i<n;i++)
+		    scanf("%d",&a[i]);
+		
+		int max, min, sum=0;
+		float aver;
+		
+		max=imax(a,n);
+		min=imin(a,n);
+		
+		for (i=0;i<n;i++)
+		    sum+=a[i];
+		
+		aver=(sum-max-min)*1.0/
+		     (n-2);
+		printf("%.2f\n",aver);
+		
+	}
+	return 0;
+}
+int imax(int a[],int n)
+{
+	int i, max=a[0], c;
+	for (i=1;i<n;i++)
+	{
+		if (max<a[i])
+		    max=a[i];
+	}
+	return max;
+}
+int imin(int a[],int n)
+{
+	int i, min=a[0], c;
+	for (i=1;i<n;i++)
+	{
+		if (min>a[i])
+		    min=a[i];
+	}
+	return min;
+}
