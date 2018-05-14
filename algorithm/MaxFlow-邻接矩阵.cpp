@@ -11,7 +11,7 @@
 #include <queue>
 using namespace std;
 #define inf 0x3f3f3f3f
-const int MAXN = 10005;
+const int MAXN = 305;
 
 /*
 采用邻接矩阵存储
@@ -23,55 +23,54 @@ const int MAXN = 10005;
 3 4 10
 */
 
-int G[MAXN][MAXN] = {0};
-int m, n;
+int g[MAXN][MAXN];
 int pre[MAXN];
 bool done[MAXN];
+int s, e;
+int n, m;
 
 int EK() {
     memset(done, 0, sizeof(done));
     memset(pre, 0, sizeof(pre));
 
     queue<int> q;
-    q.push(1);
-    done[1] = true;
+    q.push(s);
+    pre[s] = 0;
+    done[s] = 1;
     bool hasMinFlow = false;
     while(!q.empty()) {
-        int u = q.front();
-        q.pop();
+        int u = q.front(); q.pop();
 
         for(int i = 1; i <= n; i++) {
-            if(G[u][i] && !done[i]) {
+            if(g[u][i] && !done[i]) {
                 pre[i] = u;
-                if(i == n) {
+                if(i == e) {
                     hasMinFlow = true;
                     break;
                 }
                 else {
-                    q.push(i);
                     done[i] = true;
+                    q.push(i);
                 }
             }
         }
-        if(hasMinFlow == true) break;
+        if(hasMinFlow) break;
     }
-    if(hasMinFlow == false) return 0;
+    if(!hasMinFlow) return 0;
 
-    int minVal = inf;
-    int v = n;
-    while(pre[v]) {
-        minVal = min(minVal, G[pre[v]][v]);
-        v = pre[v];
-    }
-
-    v = n;
-    while(pre[v]) {
-        G[pre[v]][v] -= minVal;
-        G[v][pre[v]] += minVal;
-        v = pre[v];
+    int u = e, minFlow = inf;
+    while(pre[u]) {
+        minFlow = min(minFlow, g[pre[u]][u]);
+        u = pre[u];
     }
 
-    return minVal;
+    u = e;
+    while(pre[u]) {
+        g[pre[u]][u] -= minFlow;
+        g[u][pre[u]] += minFlow;
+        u = pre[u];
+    }
+    return minFlow;
 }
 
 int main () {
@@ -81,17 +80,20 @@ int main () {
     #endif
 
     int u, v, w;
-    scanf("%d %d", &m, &n);
-    for(int i = 0; i < m; i++) {
-        scanf("%d %d %d", &u, &v, &w);
-        G[u][v] += w;
-    }
+    while(scanf("%d %d", &m, &n) != EOF) {
+        memset(g, 0, sizeof(g));
+        s = 1, e = n;
+        for(int i = 0; i < m; i++) {
+            scanf("%d %d %d", &u, &v, &w);
+            g[u][v] += w;
+        }
 
-    int curFlow, ans = 0;
-    while(curFlow = EK()) {
-        ans += curFlow;
+        int curFlow = inf, ans = 0;
+        while(curFlow = EK()) {
+            ans += curFlow;
+        }
+        printf("%d\n", ans);
     }
-    printf("%d\n", ans);
 
     return 0;
 }
