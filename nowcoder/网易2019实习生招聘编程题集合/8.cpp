@@ -43,8 +43,8 @@ int main () {
         sort(a, a + n);
         ans = 0;
         dfs(-1, 0);
-        printf("%lld\n", ans);
     }
+    printf("%lld\n", ans);
 
     return 0;
 }
