@@ -25,3 +25,13 @@
 3. 设置 `debug.SetGCPercent(-1)` ，时间 160 ms，内存 63.8 MB。原理：设置不自动 GC，降低 GC 的耗时
 
 4. 存放答案的 ans 数组，从预先分配内存 `ans := make([]int, 0, len(queries))` 改为直接初始化所有答案为 0 `ans := make([]int, len(queries))` 。时间 140 ms （超过了 100% 的答案），内存 63.8 MB。原理：append 中会对切片容量进行判断，也会占用时间
+
+
+
+### 代码
+
+[leetcode-1001.go](../1001.网格照明.go)
+
+
+
+
