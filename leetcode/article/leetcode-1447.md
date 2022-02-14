@@ -181,8 +181,6 @@ BenchmarkSimplifiedFractionsWithBuilder-4             16      68501003 ns/op
 
 使用 `cpu profiler` 查看 `cpu` 时间占比，发现求解最大公约数的时间占总时间的 `40%` ，如果是实际业务，该部分可再优化一下。 
 
-
-
 ### 代码
 
 [leetcode-1447.go](../1447.最简分数.go)
